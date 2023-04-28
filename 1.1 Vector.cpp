@@ -19,7 +19,7 @@ int main() {
 			cout << "Vardas" << setw(20) << "Pavarde " << setw(20) << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
 			cout << "-----------------------------------------------------------" << endl;
 			for (auto& i : mas) spausd(i);
-			for (auto& i : mas) i.paz.clear();
+			for (auto& i : mas) i.getPazymiai().clear();
 		}
 		else
 		{
@@ -29,7 +29,7 @@ int main() {
 			do {
 				pild(tempas);
 				mas.push_back(tempas);
-				tempas.paz.clear();
+				tempas.getPazymiai().clear();
 				cout << "Baigti darba spausk n, testi - bet koks klavisas: ";
 				cin >> uzkl;
 				if (uzkl == 'n' || uzkl == 'N')
@@ -41,7 +41,7 @@ int main() {
 			} while (uzkl != 'n' && uzkl != 'N');
 			{
 				for (auto& i : mas) spausd(i);
-				for (auto& i : mas) i.paz.clear();
+				for (auto& i : mas) i.getPazymiai().clear();
 			}
 		}
 	}
