@@ -1,11 +1,32 @@
 #include "Vector.h"
 #define _CRT_SECURE_NO_WARNINGS
 
-struct studentas {
-	string vardas, pavarde;
-	int egz = 0;
-	vector<int> paz;
-	double vid, med;
+class studentas {
+public:
+    string vardas, pavarde;
+    int egz = 0;
+    vector<int> paz;
+    double vid, med;
+
+    // pradinis konstruktorius
+    studentas() {
+        vardas = "";
+        pavarde = "";
+        egz = 0;
+        paz.clear();
+        vid = 0;
+        med = 0;
+    }
+
+    // parametru konstruktorius
+    studentas(string v, string p, int e, vector<int> pazymiai) {
+        vardas = v;
+        pavarde = p;
+        egz = e;
+        paz = pazymiai;
+        vid = 0;
+        med = 0;
+    }
 };
 //palyginam vardus
 bool palyginti_vardus(const studentas& a, const studentas& b);
