@@ -4,10 +4,13 @@
 #include "vector.func.cpp"
 
 
+// tikrina ar egzistuoja failas
 bool egzistuojantis(const std::string& Filename)
 {
 	return access(Filename.c_str(), 0) == 0;
 }
+
+// generuoja pazymiu faila
 void fgeneravimas(int kiekis, string failovardas, double& laikas, bool genl)
 {
 	random_device rd;
@@ -45,15 +48,53 @@ void fgeneravimas(int kiekis, string failovardas, double& laikas, bool genl)
 	}
 }
 
+// palygina vardus
 bool palyginti_vardus(const studentas& a, const studentas& b) {
-	return a.vardas < b.vardas;
+	return a.getVardas() < b.getVardas();
 }
+
+// palygina galutinius pazymius
 bool palyginti_galutinius(const studentas& a, const studentas& b) {
-	return a.vid > b.vid;
+	return a.getGalutinis() > b.getGalutinis();
 }
+
+// apskaiciuoja vidurki
+double vidurkis(const vector<int>& paz, studentas& tempas) {
+	double sum = accumulate(paz.begin(), paz.end(), 0);
+	if (paz.size() > 0)
+		return 0.4 * (sum / paz.size()) + 0.6 * tempas.getEgzaminas();
+	else
+		return 0;
+}
+
+// apskaiciuoja mediana
+double mediana(vector<int>& paz, studentas& tempas) {
+	if (paz.size() != 0)
+	{
+		int n = paz.size();
+		sort(paz.begin(), paz.end());
+		if (n % 2 == 0) {
+			return (double)0.4 * ((paz[n / 2 - 1] + paz[n / 2]) / 2) + 0.6 * tempas.getEgzaminas();
+		}
+		else {
+			return (double)0.4 * (paz[n / 2]) + 0.6 * tempas.getEgzaminas();
+		}
+	}
+	else
+		return 0;
+}
+
+// ispausdina visus reikalingus duomenis
+void spausd(studentas& tempas) {
+	cout << left << setw(20) << tempas.getVardas() << setw(20) << tempas.getPavarde();
+	cout << setw(12) << fixed << setprecision(2) << vidurkis(tempas.getPazymiai(), tempas);
+	cout << setw(10) << fixed << setprecision(2) << mediana(tempas.getPazymiai(), tempas) << endl;
+}
+
 //skaitymas is failo
 void skait(studentas& tempas, int kiekis, vector<studentas>& mas, string pav) {
 	string vardas, pavarde, tmp;
+	string temp_vardas, temp_pavarde;
 	int temp;
 	ifstream inputFile(pav);
 	try {
@@ -71,17 +112,20 @@ void skait(studentas& tempas, int kiekis, vector<studentas>& mas, string pav) {
 		}
 		kiekis--;
 		while (!inputFile.eof()) {
-			inputFile >> tempas.vardas >> tempas.pavarde;
+			inputFile >> temp_vardas >> temp_pavarde;
+			tempas.setVardas(temp_vardas);
+			tempas.setPavarde(temp_pavarde);
 			for (int i = 0; i < kiekis; i++) {
 				inputFile >> temp;
-				tempas.paz.push_back(temp);
+				tempas.getPazymiai().push_back(temp);
 			}
-			inputFile >> tempas.egz;
-			if (tempas.paz.size() != kiekis) {
+			inputFile >> temp;
+			tempas.setEgzaminas(temp);
+			if (tempas.getPazymiai().size() != kiekis) {
 				throw runtime_error("Klaidingas duomenu formatas: neteisingas elementu skaicius");
 			}
 			mas.push_back(tempas);
-			tempas.paz.clear();
+			tempas.getPazymiai().clear();
 		}
 	}
 	catch (exception& e) {
@@ -90,11 +134,10 @@ void skait(studentas& tempas, int kiekis, vector<studentas>& mas, string pav) {
 	inputFile.close();
 }
 
-
 // liepia ivesti varda, pavarde, egzamino ir namu darbu rezultatus
 void pild(studentas& tempas) {
 	cout << "Iveskite varda ir pavarde: ";
-	cin >> tempas.vardas >> tempas.pavarde;
+	cin >> tempas.getVardas() >> tempas.getPavarde();
 	random_device rd;
 	mt19937 gen(rd());
 	uniform_int_distribution<int> dist(1, 10);
@@ -113,12 +156,12 @@ void pild(studentas& tempas) {
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cout << "Skaicius privalo buti didesnis uz 0" << endl;
 			cin >> p;
-			tempas.paz.push_back(p);
+			tempas.getPazymiai().push_back(p);
 		}
 		for (int i = 0; i < p; i++) {
-			tempas.paz.push_back(dist(gen));
+			tempas.getPazymiai().push_back(dist(gen));
 		}
-		tempas.egz = dist(gen);
+		tempas.setEgzaminas(dist(gen));
 	}
 	else
 	{
@@ -131,7 +174,7 @@ void pild(studentas& tempas) {
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cout << "Skaicius privalo buti nuo 1-10" << endl;
 			cin >> x;
-			tempas.paz.push_back(x);
+			tempas.getPazymiai().push_back(x);
 		}
 		cin >> x;
 		while (cin.fail() || x < 0 || x > 10)
@@ -140,7 +183,7 @@ void pild(studentas& tempas) {
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cout << "Skaicius privalo buti nuo 1-10" << endl;
 			cin >> x;
-			tempas.paz.push_back(x);
+			tempas.getPazymiai().push_back(x);
 		}
 		while (cin >> x)
 		{
@@ -148,54 +191,25 @@ void pild(studentas& tempas) {
 			{
 				break;
 			}
-			tempas.paz.push_back(x);
+			tempas.getPazymiai().push_back(x);
 		}
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cout << "Iveskite egzamino paz: ";
-		cin >> tempas.egz;
-		while (cin.fail() || tempas.egz < 0 || tempas.egz > 10) {
+		    int egz_in;
+            cin >> egz_in;
+		while (cin.fail() || egz_in < 0 || egz_in > 10) {
 			cout << "Iveskite skaiciu nuo 1-10" << endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cin >> tempas.egz;
+			cin >> egz_in;
 		}
+		tempas.setEgzaminas(egz_in);
 	}
-}
-// apskaiciuoja vidurki
-double vidurkis(const vector<int>& paz, studentas& tempas) {
-	double sum = accumulate(paz.begin(), paz.end(), 0);
-	if (paz.size() > 0)
-		return 0.4 * (sum / paz.size()) + 0.6 * tempas.egz;
-	else
-		return 0;
-}
-
-// apskaiciuoja mediana
-double mediana(vector<int>& paz, studentas& tempas) {
-	if (paz.size() != 0)
-	{
-		int n = paz.size();
-		sort(paz.begin(), paz.end());
-		if (n % 2 == 0) {
-			return (double)0.4 * ((paz[n / 2 - 1] + paz[n / 2]) / 2) + 0.6 * tempas.egz;
-		}
-		else {
-			return (double)0.4 * (paz[n / 2]) + 0.6 * tempas.egz;
-		}
-	}
-	else
-		return 0;
-}
-// ispausdina visus reikalingus duomenis
-void spausd(studentas& tempas) {
-	cout << left << setw(20) << tempas.vardas << setw(20) << tempas.pavarde;
-	cout << setw(12) << fixed << setprecision(2) << vidurkis(tempas.paz, tempas);
-	cout << setw(10) << fixed << setprecision(2) << mediana(tempas.paz, tempas) << endl;
 }
 
 void sukurti1(studentas& tempas, vector<studentas>& mas) {
-	int tikrinimas, tikrinimas2;
+	int tikrinimas;
 	string tikrinimas1, fvardas, tikrinimas3;
 	bool baigimas = false;
 	double laikas = 0;
@@ -244,18 +258,20 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 				auto startN = std::chrono::high_resolution_clock::now();
 				for (int i = 1; i < tikrinimas + 1; i++)
 				{
-					rfile1 >> tempas.vardas >> tempas.pavarde;
+					rfile1 >> tempas.getVardas() >> tempas.getPavarde();
 					for (int j = 0; j < 5; j++)
 					{
 						int pazymys;
 						rfile1 >> pazymys;
-						tempas.paz.push_back(pazymys);
+						tempas.getPazymiai().push_back(pazymys);
 					}
-					rfile1 >> tempas.egz;
-					tempas.med = mediana(tempas.paz, tempas);
-					tempas.vid = vidurkis(tempas.paz, tempas);
+					int egzaminas;
+					rfile1 >> egzaminas;
+					tempas.setEgzaminas(egzaminas);
+					tempas.setMediana(mediana(tempas.getPazymiai(), tempas));
+					tempas.setGalutinis(vidurkis(tempas.getPazymiai(), tempas));
 					mas.push_back(tempas);
-					tempas.paz.clear();
+					tempas.getPazymiai().clear();
 				}
 				rfile1.close();
 				auto endN = std::chrono::high_resolution_clock::now();
@@ -267,7 +283,7 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 				auto startR = std::chrono::high_resolution_clock::now();
 				for (auto& student : mas)
 				{
-					if (student.vid >= 5)
+					if (student.getGalutinis()>= 5)
 					{
 						//	pirmunai.push_back(move(student));
 						pirmunai.push_back(student);
@@ -285,12 +301,12 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 				char eil[100];
 				for (auto pirm : pirmunai)
 				{
-					sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", pirm.vardas.c_str(), pirm.pavarde.c_str(), pirm.vid, pirm.med);
+					sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", pirm.getVardas().c_str(), pirm.getPavarde().c_str(), pirm.getGalutinis(), pirm.getMediana());
 					file2 << eil;
 				}
 				for (auto abej : abejingi)
 				{
-					sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", abej.vardas.c_str(), abej.pavarde.c_str(), abej.vid, abej.med);
+					sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", abej.getVardas().c_str(), abej.getPavarde().c_str(), abej.getGalutinis(), abej.getMediana());
 					file3 << eil;
 				}
 				cout << "Jei norite baigti iveskite 0, jei ne bet koki kita skaiciu ar simboli" << endl;
@@ -357,18 +373,21 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 					auto startN = std::chrono::high_resolution_clock::now();
 					for (int i = 1; i < tikrinimas + 1; i++)
 					{
-						rfile1 >> tempas.vardas >> tempas.pavarde;
+						rfile1 >> tempas.getVardas() >> tempas.getPavarde();
 						for (int j = 0; j < 5; j++)
 						{
 							int pazymys;
 							rfile1 >> pazymys;
-							tempas.paz.push_back(pazymys);
+							tempas.getPazymiai().push_back(pazymys);
 						}
-						rfile1 >> tempas.egz;
-						tempas.med = mediana(tempas.paz, tempas);
-						tempas.vid = vidurkis(tempas.paz, tempas);
+						int egzaminas;
+						rfile1 >> egzaminas;
+						tempas.setEgzaminas(egzaminas);
+						tempas.setEgzaminas(egzaminas);
+						tempas.setMediana(mediana(tempas.getPazymiai(), tempas));
+						tempas.setGalutinis(vidurkis(tempas.getPazymiai(), tempas));
 						mas.push_back(tempas);
-						tempas.paz.clear();
+						tempas.getPazymiai().clear();
 					}
 					rfile1.close();
 					auto endN = std::chrono::high_resolution_clock::now();
@@ -392,7 +411,7 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 						auto startR = std::chrono::high_resolution_clock::now();
 						for (auto& student : mas)
 						{
-							if (student.vid >= 5)
+							if (student.getGalutinis() >= 5)
 							{
 								pirmunai.push_back(student);
 							}
@@ -407,12 +426,12 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 						char eil[100];
 						for (auto pirm : pirmunai)
 						{
-							sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", pirm.vardas.c_str(), pirm.pavarde.c_str(), pirm.vid, pirm.med);
+							sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", pirm.getVardas().c_str(), pirm.getPavarde().c_str(), pirm.getGalutinis(), pirm.getMediana());
 							file2 << eil;
 						}
 						for (auto abej : abejingi)
 						{
-							sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", abej.vardas.c_str(), abej.pavarde.c_str(), abej.vid, abej.med);
+							sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", abej.getVardas().c_str(), abej.getPavarde().c_str(), abej.getGalutinis(), abej.getMediana());
 							file3 << eil;
 						}
 					}
@@ -420,7 +439,7 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 					{
 						auto startR = std::chrono::high_resolution_clock::now();
 						auto partition_it = std::partition(mas.begin(), mas.end(),
-							[](const auto& elem) { return elem.vid < 5; });
+							[](const auto& elem) { return elem.getGalutinis() < 5; });
 
 						abejingi.insert(abejingi.end(), mas.begin(), partition_it);
 						mas.erase(mas.begin(), partition_it);
@@ -429,12 +448,12 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 						char eil[100];
 						for (auto pirm : pirmunai)
 						{
-							sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", pirm.vardas.c_str(), pirm.pavarde.c_str(), pirm.vid, pirm.med);
+							sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", pirm.getVardas().c_str(), pirm.getPavarde().c_str(), pirm.getGalutinis(), pirm.getMediana());
 							file2 << eil;
 						}
 						for (auto abej : abejingi)
 						{
-							sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", abej.vardas.c_str(), abej.pavarde.c_str(), abej.vid, abej.med);
+							sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", abej.getVardas().c_str(), abej.getPavarde().c_str(), abej.getGalutinis(), abej.getMediana());
 							file3 << eil;
 						}
 					}
@@ -467,19 +486,21 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 					string linija;
 					auto startN = std::chrono::high_resolution_clock::now();
 					getline(rfile1, linija);
-					while (rfile1 >> tempas.vardas >> tempas.pavarde)
+					while (rfile1 >> tempas.getVardas() >> tempas.getPavarde())
 					{
 						for (int j = 0; j < 5; j++)
 						{
 							int pazymys;
 							rfile1 >> pazymys;
-							tempas.paz.push_back(pazymys);
+							tempas.getPazymiai().push_back(pazymys);
 						}
-						rfile1 >> tempas.egz;
-						tempas.med = mediana(tempas.paz, tempas);
-						tempas.vid = vidurkis(tempas.paz, tempas);
+						int egzaminas;
+						rfile1 >> egzaminas;
+						tempas.setEgzaminas(egzaminas);
+						tempas.setMediana(mediana(tempas.getPazymiai(), tempas));
+						tempas.setGalutinis(vidurkis(tempas.getPazymiai(), tempas));
 						mas.push_back(tempas);
-						tempas.paz.clear();
+						tempas.getPazymiai().clear();
 					}
 					rfile1.close();
 					auto endN = std::chrono::high_resolution_clock::now();
@@ -490,60 +511,60 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 					durationS = std::chrono::duration_cast<std::chrono::microseconds>(endW - startW);
 					auto startR = std::chrono::high_resolution_clock::now();
 					int strat;
-					cout << "Kuria strategija norite naudoti? Jei pirmaja iveskite - 1, jei antraja - 2" << endl;
-					cin >> strat;
-					while (cin.fail() || strat != 1 && strat != 2) {
-						cout << "Iveskite 1 arba 2" << endl;
-						cin.clear();
-						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						cout << "Kuria strategija norite naudoti? Jei pirmaja iveskite - 1, jei antraja - 2" << endl;
 						cin >> strat;
-					}
-					if (strat == 1) {
-						auto startR = std::chrono::high_resolution_clock::now();
+						while (cin.fail() || strat != 1 && strat != 2) {
+							cout << "Iveskite 1 arba 2" << endl;
+							cin.clear();
+							cin.ignore(numeric_limits<streamsize>::max(), '\n');
+							cin >> strat;
+						}
+						if (strat == 1) {
+							auto startR = std::chrono::high_resolution_clock::now();
 
-						for (auto& student : mas) {
-							if (student.vid >= 5) {
-								pirmunai.push_back(std::move(student));
+							for (auto& student : mas) {
+								if (student.getGalutinis() >= 5) {
+									pirmunai.push_back(std::move(student));
+								}
+								else {
+									abejingi.push_back(std::move(student));
+								}
 							}
-							else {
-								abejingi.push_back(std::move(student));
+
+							mas.clear();
+
+							auto endR = std::chrono::high_resolution_clock::now();
+							durationR = std::chrono::duration_cast<std::chrono::microseconds>(endR - startR);
+
+							for (const auto& pirm : pirmunai) {
+								file2 << std::left << std::setw(20) << pirm.getVardas() << std::setw(20) << pirm.getPavarde() << std::setw(6) << std::fixed << std::setprecision(2) << pirm.getGalutinis() << std::setw(6) << std::fixed << std::setprecision(2) << pirm.getMediana() << '\n';
+							}
+
+							for (const auto& abej : abejingi) {
+								file3 << std::left << std::setw(20) << abej.getVardas() << std::setw(20) << abej.getPavarde()  << std::setw(6) << std::fixed << std::setprecision(2) << abej.getGalutinis() << std::setw(6) << std::fixed << std::setprecision(2) << abej.getMediana() << '\n';
 							}
 						}
+						else {
+							auto startR = std::chrono::high_resolution_clock::now();
 
-						mas.clear();
+							auto partition_it = std::partition(mas.begin(), mas.end(),
+						
+								[](const auto& elem) { return elem.getGalutinis() < 5; });
 
-						auto endR = std::chrono::high_resolution_clock::now();
-						durationR = std::chrono::duration_cast<std::chrono::microseconds>(endR - startR);
+							abejingi.insert(abejingi.end(), mas.begin(), partition_it);
+							mas.erase(mas.begin(), partition_it);
 
-						for (const auto& pirm : pirmunai) {
-							file2 << std::left << std::setw(20) << pirm.vardas << std::setw(20) << pirm.pavarde << std::setw(6) << std::fixed << std::setprecision(2) << pirm.vid << std::setw(6) << std::fixed << std::setprecision(2) << pirm.med << '\n';
+							auto endR = std::chrono::high_resolution_clock::now();
+							durationR = std::chrono::duration_cast<std::chrono::microseconds>(endR - startR);
+
+							for (const auto& pirm : mas) {
+								file2 << std::left << std::setw(20) << pirm.getVardas()<< std::setw(20) << pirm.getPavarde() << std::setw(6) << std::fixed << std::setprecision(2) << pirm.getGalutinis()  << std::setw(6) << std::fixed << std::setprecision(2) << pirm.getMediana()<< '\n';
+							}
+
+							for (const auto& abej : abejingi) {
+								file3 << std::left << std::setw(20) << abej.getVardas() << std::setw(20) << abej.getPavarde() << std::setw(6) << std::fixed << std::setprecision(2) << abej.getGalutinis()  << std::setw(6) << std::fixed << std::setprecision(2) << abej.getMediana() << '\n';
+							}
 						}
-
-						for (const auto& abej : abejingi) {
-							file3 << std::left << std::setw(20) << abej.vardas << std::setw(20) << abej.pavarde << std::setw(6) << std::fixed << std::setprecision(2) << abej.vid << std::setw(6) << std::fixed << std::setprecision(2) << abej.med << '\n';
-						}
-					}
-					else {
-						auto startR = std::chrono::high_resolution_clock::now();
-
-						auto partition_it = std::partition(mas.begin(), mas.end(),
-
-							[](const auto& elem) { return elem.vid < 5; });
-
-						abejingi.insert(abejingi.end(), mas.begin(), partition_it);
-						mas.erase(mas.begin(), partition_it);
-
-						auto endR = std::chrono::high_resolution_clock::now();
-						durationR = std::chrono::duration_cast<std::chrono::microseconds>(endR - startR);
-
-						for (const auto& pirm : mas) {
-							file2 << std::left << std::setw(20) << pirm.vardas << std::setw(20) << pirm.pavarde << std::setw(6) << std::fixed << std::setprecision(2) << pirm.vid << std::setw(6) << std::fixed << std::setprecision(2) << pirm.med << '\n';
-						}
-
-						for (const auto& abej : abejingi) {
-							file3 << std::left << std::setw(20) << abej.vardas << std::setw(20) << abej.pavarde << std::setw(6) << std::fixed << std::setprecision(2) << abej.vid << std::setw(6) << std::fixed << std::setprecision(2) << abej.med << '\n';
-						}
-					}
 				}
 				else
 					if (tikrinimas1 == "2")
@@ -555,18 +576,20 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 						auto startN = std::chrono::high_resolution_clock::now();
 						for (int i = 1; i < tikrinimas + 1; i++)
 						{
-							rfile1 >> tempas.vardas >> tempas.pavarde;
+							rfile1 >> tempas.getVardas() >> tempas.getPavarde();
 							for (int j = 0; j < 5; j++)
 							{
 								int pazymys;
 								rfile1 >> pazymys;
-								tempas.paz.push_back(pazymys);
+								tempas.getPazymiai().push_back(pazymys);
 							}
-							rfile1 >> tempas.egz;
-							tempas.med = mediana(tempas.paz, tempas);
-							tempas.vid = vidurkis(tempas.paz, tempas);
+							int egzaminas;
+							rfile1 >> egzaminas;
+							tempas.setEgzaminas(egzaminas);
+							tempas.setMediana(mediana(tempas.getPazymiai(), tempas));
+							tempas.setGalutinis(vidurkis(tempas.getPazymiai(), tempas));
 							mas.push_back(tempas);
-							tempas.paz.clear();
+							tempas.getPazymiai().clear();
 						}
 						rfile1.close();
 						auto endN = std::chrono::high_resolution_clock::now();
@@ -590,7 +613,7 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 							auto startR = std::chrono::high_resolution_clock::now();
 							for (auto& student : mas)
 							{
-								if (student.vid >= 5)
+								if (student.getGalutinis() >= 5)
 								{
 									pirmunai.push_back(student);
 								}
@@ -605,12 +628,12 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 							char eil[100];
 							for (auto pirm : pirmunai)
 							{
-								sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", pirm.vardas.c_str(), pirm.pavarde.c_str(), pirm.vid, pirm.med);
+								sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", pirm.getVardas().c_str(), pirm.getPavarde().c_str(), pirm.getGalutinis(), pirm.getMediana());
 								file2 << eil;
 							}
 							for (auto abej : abejingi)
 							{
-								sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", abej.vardas.c_str(), abej.pavarde.c_str(), abej.vid, abej.med);
+								sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", abej.getVardas().c_str(), abej.getPavarde().c_str(), abej.getGalutinis(), abej.getMediana());
 								file3 << eil;
 							}
 						}
@@ -618,7 +641,7 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 						{
 							auto startR = std::chrono::high_resolution_clock::now();
 							auto partition_it = std::partition(mas.begin(), mas.end(),
-								[](const auto& elem) { return elem.vid < 5; });
+								[](const auto& elem) { return elem.getGalutinis() < 5; });
 
 							abejingi.insert(abejingi.end(), mas.begin(), partition_it);
 							mas.erase(mas.begin(), partition_it);
@@ -627,12 +650,12 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 							char eil[100];
 							for (auto pirm : pirmunai)
 							{
-								sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", pirm.vardas.c_str(), pirm.pavarde.c_str(), pirm.vid, pirm.med);
+								sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", pirm.getVardas().c_str(), pirm.getPavarde().c_str(), pirm.getGalutinis(), pirm.getMediana());
 								file2 << eil;
 							}
 							for (auto abej : abejingi)
 							{
-								sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n", abej.vardas.c_str(), abej.pavarde.c_str(), abej.vid, abej.med);
+								sprintf_s(eil, sizeof(eil), "%-20s%-20s%-6.2f%-6.2f\n",abej.getVardas().c_str(), abej.getPavarde().c_str(), abej.getGalutinis(), abej.getMediana());
 								file3 << eil;
 							}
 						}
