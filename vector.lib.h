@@ -490,60 +490,60 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 					durationS = std::chrono::duration_cast<std::chrono::microseconds>(endW - startW);
 					auto startR = std::chrono::high_resolution_clock::now();
 					int strat;
-						cout << "Kuria strategija norite naudoti? Jei pirmaja iveskite - 1, jei antraja - 2" << endl;
+					cout << "Kuria strategija norite naudoti? Jei pirmaja iveskite - 1, jei antraja - 2" << endl;
+					cin >> strat;
+					while (cin.fail() || strat != 1 && strat != 2) {
+						cout << "Iveskite 1 arba 2" << endl;
+						cin.clear();
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						cin >> strat;
-						while (cin.fail() || strat != 1 && strat != 2) {
-							cout << "Iveskite 1 arba 2" << endl;
-							cin.clear();
-							cin.ignore(numeric_limits<streamsize>::max(), '\n');
-							cin >> strat;
-						}
-						if (strat == 1) {
-							auto startR = std::chrono::high_resolution_clock::now();
+					}
+					if (strat == 1) {
+						auto startR = std::chrono::high_resolution_clock::now();
 
-							for (auto& student : mas) {
-								if (student.vid >= 5) {
-									pirmunai.push_back(std::move(student));
-								}
-								else {
-									abejingi.push_back(std::move(student));
-								}
+						for (auto& student : mas) {
+							if (student.vid >= 5) {
+								pirmunai.push_back(std::move(student));
 							}
-
-							mas.clear();
-
-							auto endR = std::chrono::high_resolution_clock::now();
-							durationR = std::chrono::duration_cast<std::chrono::microseconds>(endR - startR);
-
-							for (const auto& pirm : pirmunai) {
-								file2 << std::left << std::setw(20) << pirm.vardas << std::setw(20) << pirm.pavarde << std::setw(6) << std::fixed << std::setprecision(2) << pirm.vid << std::setw(6) << std::fixed << std::setprecision(2) << pirm.med << '\n';
-							}
-
-							for (const auto& abej : abejingi) {
-								file3 << std::left << std::setw(20) << abej.vardas << std::setw(20) << abej.pavarde << std::setw(6) << std::fixed << std::setprecision(2) << abej.vid << std::setw(6) << std::fixed << std::setprecision(2) << abej.med << '\n';
+							else {
+								abejingi.push_back(std::move(student));
 							}
 						}
-						else {
-							auto startR = std::chrono::high_resolution_clock::now();
 
-							auto partition_it = std::partition(mas.begin(), mas.end(),
-						
-								[](const auto& elem) { return elem.vid < 5; });
+						mas.clear();
 
-							abejingi.insert(abejingi.end(), mas.begin(), partition_it);
-							mas.erase(mas.begin(), partition_it);
+						auto endR = std::chrono::high_resolution_clock::now();
+						durationR = std::chrono::duration_cast<std::chrono::microseconds>(endR - startR);
 
-							auto endR = std::chrono::high_resolution_clock::now();
-							durationR = std::chrono::duration_cast<std::chrono::microseconds>(endR - startR);
-
-							for (const auto& pirm : mas) {
-								file2 << std::left << std::setw(20) << pirm.vardas << std::setw(20) << pirm.pavarde << std::setw(6) << std::fixed << std::setprecision(2) << pirm.vid << std::setw(6) << std::fixed << std::setprecision(2) << pirm.med << '\n';
-							}
-
-							for (const auto& abej : abejingi) {
-								file3 << std::left << std::setw(20) << abej.vardas << std::setw(20) << abej.pavarde << std::setw(6) << std::fixed << std::setprecision(2) << abej.vid << std::setw(6) << std::fixed << std::setprecision(2) << abej.med << '\n';
-							}
+						for (const auto& pirm : pirmunai) {
+							file2 << std::left << std::setw(20) << pirm.vardas << std::setw(20) << pirm.pavarde << std::setw(6) << std::fixed << std::setprecision(2) << pirm.vid << std::setw(6) << std::fixed << std::setprecision(2) << pirm.med << '\n';
 						}
+
+						for (const auto& abej : abejingi) {
+							file3 << std::left << std::setw(20) << abej.vardas << std::setw(20) << abej.pavarde << std::setw(6) << std::fixed << std::setprecision(2) << abej.vid << std::setw(6) << std::fixed << std::setprecision(2) << abej.med << '\n';
+						}
+					}
+					else {
+						auto startR = std::chrono::high_resolution_clock::now();
+
+						auto partition_it = std::partition(mas.begin(), mas.end(),
+
+							[](const auto& elem) { return elem.vid < 5; });
+
+						abejingi.insert(abejingi.end(), mas.begin(), partition_it);
+						mas.erase(mas.begin(), partition_it);
+
+						auto endR = std::chrono::high_resolution_clock::now();
+						durationR = std::chrono::duration_cast<std::chrono::microseconds>(endR - startR);
+
+						for (const auto& pirm : mas) {
+							file2 << std::left << std::setw(20) << pirm.vardas << std::setw(20) << pirm.pavarde << std::setw(6) << std::fixed << std::setprecision(2) << pirm.vid << std::setw(6) << std::fixed << std::setprecision(2) << pirm.med << '\n';
+						}
+
+						for (const auto& abej : abejingi) {
+							file3 << std::left << std::setw(20) << abej.vardas << std::setw(20) << abej.pavarde << std::setw(6) << std::fixed << std::setprecision(2) << abej.vid << std::setw(6) << std::fixed << std::setprecision(2) << abej.med << '\n';
+						}
+					}
 				}
 				else
 					if (tikrinimas1 == "2")
