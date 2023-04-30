@@ -83,15 +83,16 @@ Iš struct duomenų tipo pereita į class tipą. Atlikti pakeitimai, taip, kad k
 
 Laiko palyginimas naudojant klases ir struktūras 1000000 ir 10000000 dydžio failuose:
 
-| Struct  | 1000000  | 10000000  |
-||||
-| Pirmūnų ir abejingų skirstymas naudojant pirmą strategiją | 32.9423 | 342.1945 |
 
+| Struct  | 1000000  | 10000000  |
+|---|---|---|
+||||
+| Bendras Laikas | 32.9423 | 342.1945 |
 
 | Class  | 1000000  | 10000000  |
 |---|---|---|
 ||||
-| Pirmūnų ir abejingų skirstymas naudojant pirmą strategiją | 43.308 | 437.1745 |
+| Bendras Laikas | 43.308 | 437.1745 |
 
 Class duomenų tipas įveikia programą kiek lėčiau.
 
