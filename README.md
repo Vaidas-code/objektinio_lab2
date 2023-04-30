@@ -77,6 +77,15 @@ Deque, list, vector konteinerius naudojančios programos padarytos atskiruose fa
 2 strategijos naudojama atmintis 10000000 failam nuo 1.4GB iki 1.9GB
 Kaip matome iš rezultatų - antra strategija yra efektyvesnė.
 
+V1.1:
+
+Iš struct duomenų tipo pereita į class tipą. Atlikti pakeitimai, taip, kad kodas veiktų su nauja padaryta klase. Kiekvienam private klasės nariui padaryta setter ir getter funkcija, kur setter funkcija įrašo duomenis, o getter naudoja tuos duomenis skaičiavimam arba duomenų atspausdinimui. Taip pat yra student() default konstruktorius ir ~studentas() destruktorius, kuris ištrina visus vektoriuje esančius pažymius. 
+Laiko palyginimas naudojant klases ir struktūras 1000000 ir 10000000 dydžio failuose:
+| Class  | 1000000  | 10000000  |
+|---|---|---|
+||||
+| Pirmūnų ir abejingų skirstymas naudonant pirmą strategiją | 0.002712 | 0.026349 |
+
 Naudojimosi instrukcija:
 
 Parsisiųskite priklausomai kurį norite konteinerio tipo programą (pvz. jei norite naudoti vector tipo konteinerio programą parsisiųskite 1.0Vector.cpp, vector.func.cpp, Vector.h, vector.lib.h), jei norite kito tipo konteinerio, naudokite atitankamai pavadintus failus.
