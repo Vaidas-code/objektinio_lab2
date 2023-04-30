@@ -58,20 +58,20 @@ Deque, list, vector konteinerius naudojančios programos padarytos atskiruose fa
 | Vector  | 1000  | 10000  | 100000  | 1000000  | 10000000  |
 |---|---|---|---|---|---|
 |||||
-| Pirmūnų ir abejingų skirstymas naudonant pirmą strategiją | 0.005699 | 0.067477 | 0.649836 | 6.37876 | 67.145677 |
-| Pirmūnų ir abejingų skirstymas naudonant antrą strategiją | 0.002787 | 0.02959 | 0.32028 | 3.57024 | 31.78414 |
+| Pirmūnų ir abejingų skirstymas naudojant pirmą strategiją | 0.005699 | 0.067477 | 0.649836 | 6.37876 | 67.145677 |
+| Pirmūnų ir abejingų skirstymas naudojant antrą strategiją | 0.002787 | 0.02959 | 0.32028 | 3.57024 | 31.78414 |
 
 | Deque  | 1000  | 10000  | 100000  | 1000000  | 10000000  |
 |---|---|---|---|---|---|
 |||||
-| Pirmūnų ir abejingų skirstymas naudonant pirmą strategiją | 0.002712 | 0.026349 | 0.27013 | 2.81263 | 29.17567 |
-| Pirmūnų ir abejingų skirstymas naudonant antrą strategiją | 0.006756 | 0.066774 | 0.0697 | 7.53816 | 69.14874 |
+| Pirmūnų ir abejingų skirstymas naudojant pirmą strategiją | 0.002712 | 0.026349 | 0.27013 | 2.81263 | 29.17567 |
+| Pirmūnų ir abejingų skirstymas naudojant antrą strategiją | 0.006756 | 0.066774 | 0.0697 | 7.53816 | 69.14874 |
 
 | List  | 1000  | 10000  | 100000  | 1000000  | 10000000  |
 |---|---|---|---|---|---|
 |||||
-| Pirmūnų ir abejingų skirstymas naudonant pirmą strategiją | 0.005413 | 0.053223 | 0.568018 | 6.15839 | 60.73289 |
-| Pirmūnų ir abejingų skirstymas naudonant antrą strategiją | 0.002226 | 0.025487 | 0.254313 | 2.80341 | 27.43984 |
+| Pirmūnų ir abejingų skirstymas naudojant pirmą strategiją | 0.005413 | 0.053223 | 0.568018 | 6.15839 | 60.73289 |
+| Pirmūnų ir abejingų skirstymas naudojant antrą strategiją | 0.002226 | 0.025487 | 0.254313 | 2.80341 | 27.43984 |
 
 1 strategijos naudojama atmintis 10000000 failam nuo 2GB iki 2.5GB
 2 strategijos naudojama atmintis 10000000 failam nuo 1.4GB iki 1.9GB
@@ -85,19 +85,29 @@ Laiko palyginimas naudojant klases ir struktūras 1000000 ir 10000000 dydžio fa
 
 | Struct  | 1000000  | 10000000  |
 ||||
-| Pirmūnų ir abejingų skirstymas naudonant pirmą strategiją | 32.9423 | 342.1945 |
+| Pirmūnų ir abejingų skirstymas naudojant pirmą strategiją | 32.9423 | 342.1945 |
 
 
 | Class  | 1000000  | 10000000  |
 |---|---|---|
 ||||
-| Pirmūnų ir abejingų skirstymas naudonant pirmą strategiją | 0.002712 | 0.026349 |
+| Pirmūnų ir abejingų skirstymas naudojant pirmą strategiją | 43.308 | 437.1745 |
 
+Class duomenų tipas įveikia programą kiek lėčiau.
+
+Eksperimentinė analizė, kuri parodo koks yra bendras laikas ir sukurtų exe failų dydis naudojant kompiliavimo flag'us 1000000
+
+| Komiliatoriaus flag'as | O1 | O2 | O3 |
+|---|---|---|---|
+|||||||
+| Skaičiavimų laikas | 42.3752 | 42.1707 | 41.8541 |
+| Projekto dydis | 378KB | 352KB | 349KB |
 
 Naudojimosi instrukcija:
 
-Parsisiųskite priklausomai kurį norite konteinerio tipo programą (pvz. jei norite naudoti vector tipo konteinerio programą parsisiųskite 1.0Vector.cpp, vector.func.cpp, Vector.h, vector.lib.h), jei norite kito tipo konteinerio, naudokite atitankamai pavadintus failus.
-Sudėjus šiuos failus į vieną projektą, kodas turi veikti. Jei norite naudoti funkciją, kuri perskaito duomenis iš duoto failo, įsidėkite kursiokai.txt ir kursiokai1.txt, kitu atveju, jei prašysite programos perskaityti duomenis iš failo, programa parodys, kad nėra duotų failų. PS. funkcija kuri generuoja ir skaito duomenis veiks ir be šių failų.
+Parsisiųskite šiuos failus: 1.1Vector.cpp, vector.func.cpp, Vector.h, vector.lib.h CMakeLists.txt
+Sukurkite cmake failą, po to įdėkite CmakeLists.txt kodą ten.
+Po to įdėkite pirmiau parsisiųstus failus į vieną projektą, kodas turi veikti. Jei norite naudoti funkciją, kuri perskaito duomenis iš duoto failo, įsidėkite kursiokai.txt ir kursiokai1.txt, kitu atveju, jei prašysite programos perskaityti duomenis iš failo, programa parodys, kad nėra duotų failų. PS. funkcija kuri generuoja ir skaito duomenis veiks ir be šių failų.
 
 Naudotos sistemos parametrai:
 RAM: 8GB
