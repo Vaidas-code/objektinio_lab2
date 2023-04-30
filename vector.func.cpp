@@ -28,19 +28,18 @@ public:
 
 	std::istream& readStudent(std::istream&);
 
-    // friend functions for computing the average and median
     friend double average(const  studentas&);
-    friend double median(const   studentas&);
+    double median(const studentas& tempas);
 
 };
 //palyginam vardus
 bool palyginti_vardus(const studentas& a, const studentas& b);
 void skait(studentas& tempas, int kiekis, vector<studentas>& mas, string pav);
-//void pild(studentas& tempas);
+void pild(studentas& tempas);
 double vidurkis(const vector<int>& paz, studentas& tempas);
 double mediana(vector<int>& paz, studentas& tempas);
 void spausd(studentas& tempas);
 void sukurti1(studentas& tempas, vector<studentas>& mas);
 bool palyginti_galutinius(const studentas& a, const studentas& b);
-//void fgeneravimas(int kiekis, string failovardas, double& laikas, bool genl);
+void fgeneravimas(int kiekis, string failovardas, double& laikas, bool genl);
 bool egzistuojantis(const string& filename);
