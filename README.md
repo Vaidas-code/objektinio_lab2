@@ -81,7 +81,7 @@ V1.1:
 
 Iš struct duomenų tipo pereita į class tipą. Atlikti pakeitimai, taip, kad kodas veiktų su nauja padaryta klase. Kiekvienam private klasės nariui padaryta setter ir getter funkcija, kur setter funkcija įrašo duomenis, o getter naudoja tuos duomenis skaičiavimam arba duomenų atspausdinimui. Taip pat yra student() default konstruktorius ir ~studentas() destruktorius, kuris ištrina visus vektoriuje esančius pažymius. 
 
-Laiko palyginimas naudojant klases ir struktūras 1000000 ir 10000000 dydžio failuose:
+Laiko palyginimas naudojant klases ir struktūras 1000000 ir 10000000 dydžio failuose naudojant antrą strategiją ir O3 kompiliavimo flag'ą:
 
 
 | Struct  | 1000000  | 10000000  |
