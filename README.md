@@ -104,6 +104,10 @@ Eksperimentinė analizė, kuri parodo koks yra bendras laikas ir sukurtų exe fa
 | Skaičiavimų laikas | 42.3752 | 42.1707 | 41.8541 |
 | Projekto dydis | 378KB | 352KB | 349KB |
 
+V1.2
+
+Įgyvendinta rule of five. Klasės konteineryje sukurtas kopijavimo konstruktorius, kopijavimo priskyrimas, move konstruktorius, move priskyrimas. Tapi pat sukurta friend output funkcija, kurią iškvietus, atspausdinamas studento vardas, pavardė, galutinis pažymys skaičiuojamas pagal vidurkį ir galutinis pažymys skaičiuojamas pagal medianą.
+
 Naudojimosi instrukcija:
 
 Parsisiųskite šiuos failus: 1.1Vector.cpp, vector.func.cpp, Vector.h, vector.lib.h CMakeLists.txt
