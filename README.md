@@ -108,6 +108,10 @@ V1.2
 
 Įgyvendinta rule of five. Klasės konteineryje sukurtas kopijavimo konstruktorius, kopijavimo priskyrimas, move konstruktorius, move priskyrimas. Tapi pat sukurta friend output funkcija, kurią iškvietus, atspausdinamas studento vardas, pavardė, galutinis pažymys skaičiuojamas pagal vidurkį ir galutinis pažymys skaičiuojamas pagal medianą.
 
+V1.5 
+
+Padarytos dvi klasės. Sukurta bazinė klasė žmogui (Zmogus), kuri yra visiškai abstrakti, o iš jos išvesta derived klasė (studentas). Iš Zmogus klasės neįmanoma sukurti objektų, o tai padaryti galima tik iš jos išvestinės klasės Studentas.
+
 Naudojimosi instrukcija:
 
 Parsisiųskite šiuos failus: 1.1Vector.cpp, vector.func.cpp, Vector.h, vector.lib.h CMakeLists.txt
