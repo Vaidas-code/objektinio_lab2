@@ -418,7 +418,6 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 						tempas.setGalutinis(vidurkis(tempas.getPazymiai(), tempas));
 						mas.push_back(tempas);
 						tempas.getPazymiai().clear();
-						cout << tempas.getGalutinis() << endl;
 					}
 					rfile1.close();
 					auto endN = std::chrono::high_resolution_clock::now();

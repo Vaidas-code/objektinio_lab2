@@ -1,32 +1,40 @@
 #include "Vector.h"
 #define _CRT_SECURE_NO_WARNINGS
 
-class studentas{
+class Zmogus {
+protected:
+    std::string vardas;
+    std::string pavarde;
+public:
+    virtual ~Zmogus() = default;
+    virtual std::string getVardas() const { return vardas; }
+    virtual std::string getPavarde() const { return pavarde; }
+
+    void setVardas(const std::string& vardas_) { vardas = vardas_; }
+    void setPavarde(const std::string& pavarde_) { pavarde = pavarde_; }
+};
+
+class studentas : public Zmogus {
 private:
-    string vardas, pavarde;
-    vector<int> paz;
+    std::vector<int> paz;
     double egz;
     double vid;
     double med;
 public:
     studentas() = default;
 
-    void setVardas(string vardas_) { vardas = vardas_; }
-    void setPavarde(string pavarde_) { pavarde = pavarde_; }
-    void setPazymiai(vector<int> paz_) { paz = paz_; }
+    void setPazymiai(const std::vector<int>& paz_) { paz = paz_; }
     void setEgzaminas(double egz_) { egz = egz_; }
     void setGalutinis(double vid_) { vid = vid_; }
     void setMediana(double med_) { med = med_; }
 
-    string getVardas() const { return vardas; }
-    string getPavarde() const { return pavarde; }
-    vector<int> getPazymiai() const { return paz; }
+    std::vector<int> getPazymiai() const { return paz; }
     double getEgzaminas() const { return egz; }
     double getGalutinis() const { return vid; }
     double getMediana() const { return med; }
     ~studentas () {paz.clear();}
 
-     // kopijavimo konstruktorius
+         // kopijavimo konstruktorius
     studentas(const studentas& kitas) {
         vardas = kitas.vardas;
         pavarde = kitas.pavarde;
@@ -72,20 +80,19 @@ public:
         return *this;
     }
 
-    // Output funkcija
-    friend std::ostream& operator<<(std::ostream& os, const studentas& stud) {
-    os << std::left << std::setw(20) << stud.getVardas()
-       << std::setw(20) << stud.getPavarde()
-       << std::setw(6) << std::fixed << std::setprecision(2) << stud.getGalutinis()
-       << std::setw(6) << std::fixed << std::setprecision(2) << stud.getMediana() << '\n';
-    return os;
-}
-
-
     void aver();
     void medi();
 
+    // Output funkcija
+    friend std::ostream& operator<<(std::ostream& os, const studentas& stud) {
+        os << std::left << std::setw(20) << stud.getVardas()
+           << std::setw(20) << stud.getPavarde()
+           << std::setw(6) << std::fixed << std::setprecision(2) << stud.getGalutinis()
+           << std::setw(6) << std::fixed << std::setprecision(2) << stud.getMediana() << '\n';
+        return os;
+    }
 };
+
 //palyginam vardus
 bool palyginti_vardus(const studentas& a, const studentas& b);
 void skait(studentas& tempas, int kiekis, vector<studentas>& mas, string pav);
