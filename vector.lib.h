@@ -3,7 +3,14 @@
 #define HEADER_FILE_1_H
 #include "vector.func.cpp"
 
+/*TEST_CASE("Addition Test") {
+    int a = 2;
+    int b = 3;
+    int result = a + b;
 
+    // Check if the addition is correct
+    REQUIRE(result == 5);
+}*/
 void studentas::aver()
 {
 	double sum = accumulate(paz.begin(), paz.end(), 0);

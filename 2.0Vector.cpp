@@ -1,6 +1,5 @@
 #include "vector.lib.h"
 
-
 int main() {
 	char tikr, tikr1;
 	cout << "Ar norite sugeneruoti faila arba ji skaityti? Jei taip iveskite 't':" << endl;

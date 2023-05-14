@@ -1,6 +1,7 @@
 #pragma once
 #ifndef HEADER_FILE_2_H
 #define HEADER_FILE_2_H
+#define CATCH_CONFIG_MAIN
 
 #include <iostream>
 #include <iomanip>
