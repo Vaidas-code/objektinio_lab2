@@ -112,11 +112,17 @@ V1.5
 
 Padarytos dvi klasės. Sukurta bazinė klasė žmogui (Zmogus), kuri yra visiškai abstrakti, o iš jos išvesta derived klasė (studentas). Iš Zmogus klasės neįmanoma sukurti objektų, o tai padaryti galima tik iš jos išvestinės klasės Studentas.
 
+V2.0
+
+Sukurta dokumentacija naudojant Doxygen, kur aprašytos visos funkcijos, reikalinga informacija. Realizuoti unit testing, naudojant catch library. Taip pat galiausiai sukurtas įdiegimo failas, kurį įdiegus galima naudotis programa be jokių trikdžių.
+
 Naudojimosi instrukcija:
 
-Parsisiųskite šiuos failus: 1.5Vector.cpp, vector.func.cpp, Vector.h, vector.lib.h CMakeLists.txt
-Sukurkite cmake failą, po to įdėkite CmakeLists.txt kodą ten.
-Po to įdėkite pirmiau parsisiųstus failus į vieną projektą, kodas turi veikti. Jei norite naudoti funkciją, kuri perskaito duomenis iš duoto failo, įsidėkite kursiokai.txt ir kursiokai1.txt, kitu atveju, jei prašysite programos perskaityti duomenis iš failo, programa parodys, kad nėra duotų failų. PS. funkcija kuri generuoja ir skaito duomenis veiks ir be šių failų.
+Parsisiųskite šį failą: Setup.exe
+Pasirinkite ar norite parsisiųsti tik executable failą ar/ir source failus.
+Toliau pasirinkite kur norite juos įdiegti.
+Ten kur pasirinkote rasite visą atsisiųstą informaciją ir galėsite naudotis programa be jokių problemų.
+Dėl vienos funkcijos veikimo reikia parsisiųsti kursiokai.txt ar kursiokai1.txt failus. Net ir neturint jų visos kitos programos funkcijos veiks tinkamai.
 
 Naudotos sistemos parametrai:
 RAM: 8GB
