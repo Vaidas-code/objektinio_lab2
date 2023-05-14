@@ -1,0 +1,72 @@
+[OPTIONS]
+Compatibility=1.1
+Full-text search=Yes
+Contents file=index.hhc
+Default Window=main
+Default topic=index.html
+Index file=index.hhk
+Language=0x409 English (United States)
+Title=V2.0
+
+[WINDOWS]
+main="V2.0","index.hhc","index.hhk","index.html","index.html",,,,,0x23520,,0x10387e,,,,,,,,0
+
+[FILES]
+2_80_vector_8h.html
+2_80_vector_8h_source.html
+_vector_8h.html
+_vector_8h_source.html
+annotated.html
+class_zmogus-members.html
+class_zmogus.html
+classes.html
+classstudentas-members.html
+classstudentas.html
+dir_67ee434c375b78a9a9bacfbc0cdb4013.html
+files.html
+functions.html
+functions_func.html
+functions_rela.html
+functions_vars.html
+globals.html
+globals_defs.html
+globals_func.html
+hierarchy.html
+index.html
+vector_8func_8h.html
+vector_8func_8h_source.html
+vector_8lib_8h.html
+vector_8lib_8h_source.html
+bc_s.png
+bc_sd.png
+bdwn.png
+class_zmogus.png
+classstudentas.png
+closed.png
+doc.png
+docd.png
+doxygen.svg
+folderclosed.png
+folderopen.png
+nav_f.png
+nav_fd.png
+nav_g.png
+nav_h.png
+nav_hd.png
+open.png
+splitbar.png
+splitbard.png
+sync_off.png
+sync_on.png
+tab_a.png
+tab_ad.png
+tab_b.png
+tab_bd.png
+tab_h.png
+tab_hd.png
+tab_s.png
+tab_sd.png
+doxygen.css
+dynsections.js
+jquery.js
+tabs.css
