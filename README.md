@@ -114,7 +114,7 @@ Padarytos dvi klasės. Sukurta bazinė klasė žmogui (Zmogus), kuri yra visišk
 
 Naudojimosi instrukcija:
 
-Parsisiųskite šiuos failus: 1.1Vector.cpp, vector.func.cpp, Vector.h, vector.lib.h CMakeLists.txt
+Parsisiųskite šiuos failus: 1.5Vector.cpp, vector.func.cpp, Vector.h, vector.lib.h CMakeLists.txt
 Sukurkite cmake failą, po to įdėkite CmakeLists.txt kodą ten.
 Po to įdėkite pirmiau parsisiųstus failus į vieną projektą, kodas turi veikti. Jei norite naudoti funkciją, kuri perskaito duomenis iš duoto failo, įsidėkite kursiokai.txt ir kursiokai1.txt, kitu atveju, jei prašysite programos perskaityti duomenis iš failo, programa parodys, kad nėra duotų failų. PS. funkcija kuri generuoja ir skaito duomenis veiks ir be šių failų.
 
