@@ -7,8 +7,8 @@ protected:
     std::string pavarde;
 public:
     virtual ~Zmogus() = default;
-    virtual std::string getVardas() const { return vardas; }
-    virtual std::string getPavarde() const { return pavarde; }
+    virtual std::string getVardas()  const = 0;
+    virtual std::string getPavarde()  const = 0;
 
     void setVardas(const std::string& vardas_) { vardas = vardas_; }
     void setPavarde(const std::string& pavarde_) { pavarde = pavarde_; }
@@ -16,17 +16,20 @@ public:
 
 class studentas : public Zmogus {
 private:
-    std::vector<int> paz;
+    vector<int> paz;
     double egz;
     double vid;
     double med;
 public:
     studentas() = default;
 
-    void setPazymiai(const std::vector<int>& paz_) { paz = paz_; }
+    void setPazymiai(const vector<int>& paz_) { paz = paz_; }
     void setEgzaminas(double egz_) { egz = egz_; }
     void setGalutinis(double vid_) { vid = vid_; }
     void setMediana(double med_) { med = med_; }
+
+    string getVardas() const override { return vardas; }
+    string getPavarde() const override { return pavarde; }
 
     std::vector<int> getPazymiai() const { return paz; }
     double getEgzaminas() const { return egz; }
