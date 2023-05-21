@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <string>
 #include <algorithm>
+#include <iterator>
 #include <vector>
 #include <random>
 #include <numeric>
@@ -27,6 +28,8 @@
 #include <sys/stat.h>
 #include <deque>
 #include <list>
+#include <iterator>
+#include "eksperimentai.h"
 
 using std::cout;
 using std::cin;
