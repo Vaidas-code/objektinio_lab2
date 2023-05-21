@@ -100,7 +100,7 @@ bool palyginti_galutinius(const studentas& a, const studentas& b) {
 }
 
 // apskaiciuoja vidurki
-double vidurkis(const vector<int>& paz, studentas& tempas) {
+double vidurkis(const Vektorius<int>& paz, studentas& tempas) {
 	double sum = accumulate(paz.begin(), paz.end(), 0);
 	if (paz.size() > 0)
 		return 0.4 * (sum / paz.size()) + 0.6 * tempas.getEgzaminas();
@@ -109,7 +109,7 @@ double vidurkis(const vector<int>& paz, studentas& tempas) {
 }
 
 // apskaiciuoja mediana
-double mediana(vector<int>& paz, studentas& tempas) {
+double mediana(Vektorius<int>& paz, studentas& tempas) {
 	if (paz.size() != 0)
 	{
 		int n = paz.size();
@@ -133,7 +133,7 @@ void spausd(studentas& tempas) {
 }
 
 //skaitymas is failo
-void skait(studentas& tempas, int kiekis, vector<studentas>& mas, string pav) {
+void skait(studentas& tempas, int kiekis, Vektorius<studentas>& mas, string pav) {
 	string vardas, pavarde, tmp;
 	string temp_vardas, temp_pavarde;
 	int temp;
@@ -249,7 +249,7 @@ void pild(studentas& tempas) {
 	}
 }
 
-void sukurti1(studentas& tempas, vector<studentas>& mas) {
+void sukurti1(studentas& tempas, Vektorius<studentas>& mas) {
 	int tikrinimas;
 	string tikrinimas1, fvardas, tikrinimas3;
 	bool baigimas = false;
@@ -257,8 +257,8 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 	auto durationN = std::chrono::microseconds();
 	auto durationR = std::chrono::microseconds();
 	auto durationS = std::chrono::microseconds();
-	vector<studentas> pirmunai;
-	vector<studentas> abejingi;
+	Vektorius<studentas> pirmunai;
+	Vektorius<studentas> abejingi;
 	if (!egzistuojantis("sukurtas1000.txt") && !egzistuojantis("sukurtas10000.txt") && !egzistuojantis("sukurtas100000.txt") && !egzistuojantis("sukurtas1000000.txt") && !egzistuojantis("sukurtas1000000.txt"))
 	{
 		cout << "Failu nera, ar norite generuoti faila? Jei taip iveskite 1" << endl;
@@ -416,7 +416,7 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 						{
 							int pazymys;
 							rfile1 >> pazymys;
-                            tempas.getPazymiai().push_back(pazymys);  // Add the new grade to the vector
+                            tempas.getPazymiai().push_back(pazymys);
 						}
 						int egzaminas;
 						rfile1 >> egzaminas;
@@ -522,7 +522,7 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 					{
 						tempas.setVardas(vard);
 						tempas.setPavarde(pav);
-						vector<int> pazymys;
+						Vektorius<int> pazymys;
 						for (int j = 0; j < 5; j++)
 						{
 							int paz;
@@ -612,7 +612,7 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 						getline(rfile1, linija);
 						auto startN = std::chrono::high_resolution_clock::now();
 						string vard, pav;
-						vector<int> pazymys;
+						Vektorius<int> pazymys;
 						for (int i = 1; i < tikrinimas + 1; i++)
 						{
 							rfile1 >> vard >> pav;
@@ -723,3 +723,4 @@ void sukurti1(studentas& tempas, vector<studentas>& mas) {
 	}
 }
 #endif
+
