@@ -16,19 +16,19 @@ public:
 
 class studentas : public Zmogus {
 private:
-    std::vector<int> paz;
+    Vektorius<int> paz;
     double egz;
     double vid;
     double med;
 public:
     studentas() = default;
 
-    void setPazymiai(const std::vector<int>& paz_) { paz = paz_; }
+    void setPazymiai(const Vektorius<int>& paz_) { paz = paz_; }
     void setEgzaminas(double egz_) { egz = egz_; }
     void setGalutinis(double vid_) { vid = vid_; }
     void setMediana(double med_) { med = med_; }
 
-    std::vector<int> getPazymiai() const { return paz; }
+    Vektorius<int> getPazymiai() const { return paz; }
     double getEgzaminas() const { return egz; }
     double getGalutinis() const { return vid; }
     double getMediana() const { return med; }
@@ -93,12 +93,11 @@ public:
     }
 };
 
-//palyginam vardus
 bool palyginti_vardus(const studentas& a, const studentas& b);
-void skait(studentas& tempas, int kiekis, vector<studentas>& mas, string pav);
+void skait(studentas& tempas, int kiekis, Vektorius<studentas>& mas, string pav);
 void pild(studentas& tempas);
 void spausd(studentas& tempas);
-void sukurti1(studentas& tempas, vector<studentas>& mas);
+void sukurti1(studentas& tempas, Vektorius<studentas>& mas);
 bool palyginti_galutinius(const studentas& a, const studentas& b);
 void fgeneravimas(int kiekis, string failovardas, double& laikas, bool genl);
 bool egzistuojantis(const string& filename);
