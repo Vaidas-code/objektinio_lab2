@@ -11,7 +11,7 @@ int main() {
 		if (tikr == 'y' || tikr == 'Y')
 		{
 			int kiekis = 0;
-			vector <studentas> mas;
+			Vektorius <studentas> mas;
 			studentas tempas;
 			skait(tempas, kiekis, mas, "kursiokai1.txt");
 			sort(mas.begin(), mas.end(), palyginti_vardus);
@@ -22,7 +22,7 @@ int main() {
 		}
 		else
 		{
-			vector <studentas> mas;
+			Vektorius <studentas> mas;
 			studentas tempas;
 			char uzkl = 'n';
 			do {
@@ -45,11 +45,12 @@ int main() {
 		}
 	}
 	else {
-		vector <studentas> mas;
+		Vektorius <studentas> mas;
 		studentas tempas;
 		sukurti1(tempas, mas);
 	}
 	cout << endl;
 }
+
 
 
