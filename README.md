@@ -116,6 +116,37 @@ V2.0
 
 Sukurta dokumentacija naudojant Doxygen, kur aprašytos visos funkcijos, reikalinga informacija. Realizuoti unit testing, naudojant catch library. Taip pat galiausiai sukurtas įdiegimo failas, kurį įdiegus galima naudotis programa be jokių trikdžių.
 
+VektoriausKlasė
+
+Klasėje Vektorius įvykdyta didžioji dalis std::vector funkcijų ir jos buvo ištestuotos. Tos funkcijos yra pavyzdžiuj clear(),  swap(), insert(), erase(), pop_back() ir kitos. Visas funkcijas panaudotas galima pamatyti eksperimentai.cpp faile. 
+O čia keli pavyzdžiai viršuje parašytų funkcijų panaudojimo:
+
+clear():
+Vektorius sk prieš clear(): {1 5 8 9 20}
+Vektorius sk po clear(): {(tuščias)}
+
+swap():
+prieš swap()
+Vektorius g1 = {1,2,3,4,5}
+Vektorius g2 = {10, 20, 30}
+po swap()
+Vektorius g1 = {10, 20, 30}
+Vektorius g2 = {1,2,3,4,5}
+
+insert():
+Vektorius numbers5 prieš insert() = {1,2,3,4,5}
+Vektorius numbers5 po insert(numbers5.begin() + 2, 10) = {1, 2, 10, 3, 4, 5}
+
+erase():
+Vektorius numbers7 prieš erase() = {1,2,3,4,5}
+Vektorius numbers7 po erase(numbers7.begin()+2) = {1,2,4,5}
+
+pop_back():
+Vektorius numbers4 prieš pop_back() = {1,2,3,4,5}
+Vektorius numbers4 po pop_back() = {1,2,3,4}
+
+//testi dok
+
 Naudojimosi instrukcija:
 
 Parsisiųskite šį failą: Setup.exe
