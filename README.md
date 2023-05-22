@@ -145,7 +145,24 @@ pop_back():
 Vektorius numbers4 prieš pop_back() = {1,2,3,4,5}
 Vektorius numbers4 po pop_back() = {1,2,3,4}
 
-//testi dok
+V2.0 spartos palyginimas naudojant greitesnę (2 strategiją) tarp std::vector ir sukurtos Vektorius klasės naudojant 100000 studentų įrašų
+
+| Sparta  | Vektorius  | std::vector  |
+|---|---|---|
+||||
+| 100000 | 4.51671 | 4.36619|
+
+Efektyvumo/spartos analizė palyginant std::vector ir Vector vidutiniai laikai tuščius vektorius užpildant 10000, 100000, 1000000, 10000000 ir 100000000 int elementų naudojant push_back() funkciją.
+
+| Sparta  | Vektorius  | std::vector  |
+|---|---|---|
+||||
+| 100000 | 0.007599 | 0.007743 |
+| 1000000 | 0.071609 | 0.074275 |
+| 10000000 | 0.726422 | 0.72843 |
+| 100000000 | 7.26988 | 7.39075 |
+
+Patikrintas atminties perskirstymas naudojant int konteinerį ir 100000000 elementų - 46. 
 
 Naudojimosi instrukcija:
 
