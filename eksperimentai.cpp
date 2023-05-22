@@ -57,23 +57,23 @@ int main()
 
     //shrink_to_fit
     std::cout << "SHRINK_TO_FIT" << endl;
-    Vektorius<int> v1;
-    std::cout << "Default-constructed capacity is " << v1.capacity() << '\n';
-    v1.resize(100);
-    std::cout << "Capacity of a 100-element vector is " << v1.capacity() << '\n';
-    v1.resize(50);
-    std::cout << "Capacity after resize(50) is " << v1.capacity() << '\n';
-    v1.shrink_to_fit();
-    std::cout << "Capacity after shrink_to_fit() is " << v1.capacity() << '\n';
-    v1.clear();
-    std::cout << "Capacity after clear() is " << v1.capacity() << '\n';
-    v1.shrink_to_fit();
-    std::cout << "Capacity after shrink_to_fit() is " << v1.capacity() << '\n';
+    Vektorius<int> v5;
+    std::cout << "Default-constructed capacity is " << v5.capacity() << '\n';
+    v5.resize(100);
+    std::cout << "Capacity of a 100-element vector is " << v5.capacity() << '\n';
+    v5.resize(50);
+    std::cout << "Capacity after resize(50) is " << v5.capacity() << '\n';
+    v5.shrink_to_fit();
+    std::cout << "Capacity after shrink_to_fit() is " << v5.capacity() << '\n';
+    v5.clear();
+    std::cout << "Capacity after clear() is " << v5.capacity() << '\n';
+    v5.shrink_to_fit();
+    std::cout << "Capacity after shrink_to_fit() is " << v5.capacity() << '\n';
     for (int i = 1000; i < 1300; ++i)
-        v1.push_back(i);
-    std::cout << "Capacity after adding 300 elements is " << v1.capacity() << '\n';
-    v1.shrink_to_fit();
-    std::cout << "Capacity after shrink_to_fit() is " << v1.capacity() << '\n';
+        v5.push_back(i);
+    std::cout << "Capacity after adding 300 elements is " << v5.capacity() << '\n';
+    v5.shrink_to_fit();
+    std::cout << "Capacity after shrink_to_fit() is " << v5.capacity() << '\n';
     //reserve
     std::cout << "RESERVE: " << endl;
     Vektorius<int> myVector;
@@ -217,28 +217,30 @@ int main()
     std::cout << "\nMoved-from string `s` holds: " << std::quoted(s) << '\n';
     // pop_back
     std::cout << "POP_BACK: " << endl;
-    Vektorius<int> numbers4 = {1,2,3,4,5};
+Vektorius<int> numbers4 = {1, 2, 3, 4, 5};
 
-    std::cout << "Original vector: ";
-    for (const auto& number : numbers4) {
-        std::cout << number << " ";
-    }
-    std::cout << std::endl;
+std::cout << "Original vector: ";
+for (const auto& number : numbers4) {
+    std::cout << number << " ";
+}
+std::cout << std::endl;
 
-    numbers.pop_back();  // Remove the last element
+numbers4.pop_back();  // Remove the last element
 
-    std::cout << "Vector after pop_back: ";
-    for (const auto& number : numbers4) {
-        std::cout << number << " ";
-    }
-    std::cout << std::endl; 
+std::cout << "Vector after pop_back: ";
+for (const auto& number2 : numbers4) {
+    std::cout << number2 << " ";
+}
+std::cout << std::endl;
+
     //swap
     std::cout << "SWAP: " << endl;
     Vektorius<int> g1 = {1, 2, 3, 4, 5};
     Vektorius<int> g2 = {10, 20, 30};
     std::cout << "Before swap:" << std::endl;
     std::cout << "g1: ";
-    for (size_t i = 0; i < g1.size(); i++)
+    for (size_t i = 0; i <
+     g1.size(); i++)
     std::cout << g1[i]  << " ";
     std::cout << endl;
     std::cout << "g2: ";
@@ -314,5 +316,24 @@ int main()
         std::cout << number << " ";
     }
     std::cout << std::endl;
+auto startvector = std::chrono::high_resolution_clock::now();
+unsigned int sz = 100000;  // 100000, 1000000, 10000000, 100000000
+std::vector<int> v1;
+for (int i = 1; i <= sz; ++i)
+    v5.push_back(i);
+// Finish measuring the time to fill v5
+auto endvector = std::chrono::high_resolution_clock::now();
+auto durationvector = std::chrono::duration_cast<std::chrono::microseconds>(endvector - startvector);
+
+auto startVektorius = std::chrono::high_resolution_clock::now();
+Vektorius<int> v2;
+for (int i = 1; i <= sz; ++i)
+    v2.push_back(i);
+auto endVektorius = std::chrono::high_resolution_clock::now();
+auto durationVektorius = std::chrono::duration_cast<std::chrono::microseconds>(endVektorius - startVektorius);
+
+cout << "durationvector: " << durationvector.count() / 1000000.0 << " seconds. " << endl;
+cout << "durationVektorius: " << durationVektorius.count()/ 1000000.0 << " seconds. " << endl;
+
 
 }
